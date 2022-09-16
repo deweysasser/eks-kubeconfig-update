@@ -30,3 +30,17 @@ func TestOptions_Run(t *testing.T) {
 	assert.Equal(t, exitValue, 0)
 	assert.Equal(t, "unknown\n", out)
 }
+
+func TestOptions_ReadConfig(t *testing.T) {
+	program := Options{KubeConfig: "testdata/config"}
+
+	config, err := program.ReadConfig()
+
+	assert.NoError(t, err)
+	assert.NotNil(t, config)
+
+	assert.Equal(t, 6, len(config.Clusters))
+
+	c := config.Clusters["docker-desktop"]
+	assert.Equal(t, "https://kubernetes.docker.internal:6443", c.Server)
+}
