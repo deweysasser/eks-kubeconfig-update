@@ -37,7 +37,7 @@ func (program *Options) Parse(args []string) (*kong.Context, error) {
 }
 
 // Run runs the program
-func (program *Options) Run() error {
+func (program *Options) Run(options *Options) error {
 	return nil
 }
 
