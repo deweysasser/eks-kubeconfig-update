@@ -81,32 +81,32 @@ jobs:
         files: ./artifacts/*
         body_path: ./CHANGELOG.md
         draft: true
-
-  docker-build:
-    runs-on: ubuntu-latest
-    name: Build the docker image
-    steps:
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Docker Release to GHCR
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          build-args: |
-            GO_VERSION=${{ env.GO_VERSION }}
-            VERSION=${{ github.ref_name }}
-          tags: |
-             ghcr.io/${{env.REPO}}:latest
-             ghcr.io/${{env.REPO}}:${{ github.ref_name }}
+#
+#  docker-build:
+#    runs-on: ubuntu-latest
+#    name: Build the docker image
+#    steps:
+#      - name: Login to GitHub Container Registry
+#        uses: docker/login-action@v1
+#        with:
+#          registry: ghcr.io
+#          username: ${{ github.repository_owner }}
+#          password: ${{ secrets.GITHUB_TOKEN }}
+#
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#
+#      - name: Docker Release to GHCR
+#        uses: docker/build-push-action@v2
+#        with:
+#          context: .
+#          push: true
+#          build-args: |
+#            GO_VERSION=${{ env.GO_VERSION }}
+#            VERSION=${{ github.ref_name }}
+#          tags: |
+#             ghcr.io/${{env.REPO}}:latest
+#             ghcr.io/${{env.REPO}}:${{ github.ref_name }}
 
 # uncomment this if you're also using docker hub
 #      - name: Login to Docker Container Registry
