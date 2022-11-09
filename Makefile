@@ -36,12 +36,14 @@ test:
 vet:
 	go vet ./...
 
-changelog: CHANGELOG.md
-CHANGELOG.md: .chglog/config.yml
-	git chglog $(LAST_RELEASE) >$@
 
-.chglog/config.yml: go.mod
-	sed -i.bak -e "s|repository_url:.*|repository_url: $(REPO)|" $@
+changelog: CHANGELOG.md
+
+CHANGELOG.md: LAST=$(shell git tag --sort=-version:refname | tail -n -1 | head -n 1)
+CHANGELOG.md: TOP=$(shell git tag --sort=-version:refname |  head -n 1)
+CHANGELOG.md:
+	(printf "# "; git tag -l -n 50 $(TOP); echo) > $@
+	git log --pretty="* %f (%h)" $(LAST).. >> $@
 
 hooks: .git/hooks/pre-commit
 
