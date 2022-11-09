@@ -17,3 +17,6 @@ golang-program
 .idea
 CHANGELOG.md
 eks-kubeconfig-update
+dist
+bin
+.Dockerfile.tmp

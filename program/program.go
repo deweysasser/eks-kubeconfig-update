@@ -44,7 +44,7 @@ func (program *Options) Parse(args []string) (*kong.Context, error) {
 }
 
 // Run runs the program
-func (program *Options) Run() error {
+func (program *Options) Run(options *Options) error {
 	config, err := program.ReadConfig()
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to read kubeconfig file")
@@ -95,7 +95,6 @@ func (program *Options) AfterApply() error {
 	program.initLogging()
 
 	if len(program.Regions) < 1 {
-		//log.Error().Msg("Must specify at least one region")
 		return errors.New("Must specify at least one region")
 	}
 	return nil
