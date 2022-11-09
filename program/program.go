@@ -4,17 +4,24 @@ import (
 	"fmt"
 	"github.com/alecthomas/kong"
 	"github.com/mattn/go-colorable"
+	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"io"
 	"os"
 	"runtime"
+	"sync"
 )
 
 // Options is the structure of program options
 type Options struct {
 	Version bool `help:"Show program version"`
 	// VersionCmd VersionCmd `name:"version" cmd:"" help:"show program version"`
+
+	KubeConfig      string   `group:"Input" short:"k" help:"Kubeconfig file" type:"path" default:"~/.kube/config"`
+	CredentialsFile string   `group:"Input" short:"c" help:"AWS Credentials File" type:"existingfile" default:"~/.aws/credentials"`
+	Regions         []string `group:"Input" help:"List of regions to check" env:"AWS_REGIONS" default:"us-east-1,us-east-2,us-west-1,us-west-2"`
+	Profiles        []string `group:"Input" help:"List of AWS profiles to use.  Will discover profiles if not specified" env:"AWS_PROFILES"`
 
 	Debug        bool   `group:"Info" help:"Show debugging information"`
 	OutputFormat string `group:"Info" enum:"auto,jsonl,terminal" default:"auto" help:"How to show program output (auto|terminal|jsonl)"`
@@ -25,7 +32,7 @@ type Options struct {
 func (program *Options) Parse(args []string) (*kong.Context, error) {
 	parser, err := kong.New(program,
 		kong.ShortUsageOnError(),
-		// kong.Description("Brief Program Summary"),
+		kong.Description("Download kubeconfigs in bulk by examining clusters across multiple profiles and regions"),
 	)
 
 	if err != nil {
@@ -38,12 +45,59 @@ func (program *Options) Parse(args []string) (*kong.Context, error) {
 
 // Run runs the program
 func (program *Options) Run() error {
+	config, err := program.ReadConfig()
+	if err != nil {
+		log.Error().Err(err).Msg("Failed to read kubeconfig file")
+		return err
+	}
+
+	clusters := make(chan ClusterInfo)
+
+	wg := sync.WaitGroup{}
+	for sess := range program.getUniqueSessions() {
+		wg.Add(1)
+		go func(sess *sessionInfo) {
+			defer wg.Done()
+			program.getClustersFrom(sess, clusters)
+		}(sess)
+	}
+
+	go func() {
+		wg.Wait()
+		close(clusters)
+	}()
+
+	for c := range clusters {
+		if err := captureConfig(c, config); err != nil {
+			stats.Errors.Add(1)
+			log.Error().Err(err).Msg("Error capturing cluster configuration")
+		}
+	}
+
+	if err := program.WriteConfig(config); err != nil {
+		stats.Errors.Add(1)
+		log.Error().
+			Err(err).
+			Str("file", program.KubeConfig).
+			Msg("Error saving kubeconfig")
+	}
+
+	stats.Log()
+
+	if stats.Errors.Load() > 0 {
+		return errors.New("Errors encountered during run")
+	}
 	return nil
 }
 
 // AfterApply runs after the options are parsed but before anything runs
 func (program *Options) AfterApply() error {
 	program.initLogging()
+
+	if len(program.Regions) < 1 {
+		//log.Error().Msg("Must specify at least one region")
+		return errors.New("Must specify at least one region")
+	}
 	return nil
 }
 
