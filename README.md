@@ -10,11 +10,22 @@ runtime is very small for the number of profiles and regions retrieved.
 
 It will tolerate redundant profiles.
 
+## Installation
+
+On MacOS: `brew install deweysasser/tap/eks-kubeconfig-update`
+
+(if you happen to use brew on linux, you can also use the above)
+
+On Linux or Windows:  Download the appropriate package from the 
+[latest release](https://github.com/deweysasser/eks-kubeconfig-update/releases) page.
+
 ## Quick Start
 
 ```shell
 eks-kubeconfig-update
 ```
+
+This will use every profile in your `~/.aws/credentials` and download kubeconfig for every cluster located.
 
 ## Example
 
