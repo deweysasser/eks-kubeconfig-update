@@ -1,7 +1,26 @@
 ---
 version: 2
-updates:
-  - package-ecosystem: gomod
-    directory: /
+updates:   
+  - package-ecosystem: "github-actions" # See documentation for possible values
+    directory: "/" # Location of package manifests
     schedule:
-      interval: daily
+      interval: "weekly"
+    # Add assignees
+    assignees:
+      - "clouddrove-ci"
+    # Add reviewer
+    reviewers:
+      - "nikitadugar"  
+      - "anmolnagpal"  
+      
+  - package-ecosystem: "gomod" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "weekly"
+    # Add assignees
+    assignees:
+      - "clouddrove-ci"
+    # Add reviewer
+    reviewers:
+      - "nikitadugar"  
+      - "anmolnagpal"          
