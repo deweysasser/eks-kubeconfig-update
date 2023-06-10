@@ -16,7 +16,7 @@
 golang-program
 .idea
 CHANGELOG.md
-eks-kubeconfig-update
+aws-kuconfig
 dist
 bin
 .Dockerfile.tmp

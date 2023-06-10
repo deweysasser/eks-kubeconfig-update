@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/deweysasser/eks-kubeconfig-update/program"
+	"github.com/clouddrove/aws-kuconf-update/program"
 	"github.com/rs/zerolog/log"
 	"os"
 )

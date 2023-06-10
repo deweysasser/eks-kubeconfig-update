@@ -1,4 +1,4 @@
-# eks-kubeconfig-update
+# aws-kuconf
 
 A quick utility for finding and downloading kubeconfig files for all reachable EKS clusters.
 
@@ -12,17 +12,17 @@ It will tolerate redundant profiles.
 
 ## Installation
 
-On MacOS: `brew install deweysasser/tap/eks-kubeconfig-update`
+On MacOS: `brew install deweysasser/tap/aws-kuconf`
 
 (if you happen to use brew on linux, you can also use the above)
 
 On Linux or Windows:  Download the appropriate package from the 
-[latest release](https://github.com/deweysasser/eks-kubeconfig-update/releases) page.
+[latest release](https://github.com/deweysasser/aws-kuconf/releases) page.
 
 ## Quick Start
 
 ```shell
-eks-kubeconfig-update
+aws-kuconf
 ```
 
 This will use every profile in your `~/.aws/credentials` and download kubeconfig for every cluster located.
@@ -30,7 +30,7 @@ This will use every profile in your `~/.aws/credentials` and download kubeconfig
 ## Example
 
 ```shell
-$ time eks-kubeconfig-update
+$ time aws-kuconf
 8:44PM ERR Error reaching AWS error="InvalidClientTokenId: The security token included in the request is invalid\n\tstatus code: 403, request id: e7b25ace-2f73-45a1-9c81-0f0b9e34ba6e" profile=profile-1 region=us-east-1
 8:44PM ERR Error reaching AWS error="InvalidClientTokenId: The security token included in the request is invalid\n\tstatus code: 403, request id: 228ece97-cdba-4de2-be70-48135ccad188" profile=profile-2 region=us-east-1
 8:44PM ERR Error reaching AWS error="InvalidClientTokenId: The security token included in the request is invalid\n\tstatus code: 403, request id: 6b8e9d80-b024-4db4-8fb4-9918744a03b4" profile=profile-3 region=us-east-1
@@ -50,7 +50,7 @@ $ grep -- "- context:" ~/.kube/config| wc -l
 
 
 ```text
-Usage: eks-kubeconfig-update
+Usage: aws-kuconf
 
 Download kubeconfigs in bulk by examining clusters across multiple profiles and regions
 
@@ -104,4 +104,4 @@ environment variable.
 
 Dewey Sasser <dewey@deweysasser.com>
 
-Please report all bugs via GitHub issues at https://github.com/deweysasser/eks-kubeconfig-update
+Please report all bugs via GitHub issues at https://github.com/deweysasser/aws-kuconf

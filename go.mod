@@ -1,4 +1,4 @@
-module github.com/deweysasser/eks-kubeconfig-update
+module github.com/clouddrove/aws-kuconf
 
 go 1.19
 
