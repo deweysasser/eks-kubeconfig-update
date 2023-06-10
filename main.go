@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/clouddrove/aws-kuconf-update/program"
+	"github.com/clouddrove/aws-kuconf/program"
 	"github.com/rs/zerolog/log"
 	"os"
 )
