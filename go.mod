@@ -1,4 +1,4 @@
-module github.com/clouddrove/aws-kuconf
+module github.com/clouddrove/kuconf
 
 go 1.19
 
