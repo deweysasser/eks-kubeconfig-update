@@ -3,14 +3,12 @@ module github.com/deweysasser/eks-kubeconfig-update
 go 1.19
 
 require (
-	bou.ke/monkey v1.0.2
 	github.com/alecthomas/kong v0.6.1
 	github.com/aws/aws-sdk-go v1.44.99
 	github.com/mattn/go-colorable v0.1.13
 	github.com/pkg/errors v0.9.1
 	github.com/rs/zerolog v1.28.0
-	github.com/stretchr/testify v1.8.0
-	github.com/zenizh/go-capturer v0.0.0-20211219060012-52ea6c8fed04
+	github.com/stretchr/testify v1.8.4
 	k8s.io/client-go v0.25.0
 )
 
