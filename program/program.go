@@ -33,7 +33,7 @@ func (program *Options) Parse(args []string) (*kong.Context, error) {
 	parser, err := kong.New(program,
 		kong.ShortUsageOnError(),
 		kong.Description("Download kubeconfigs in bulk by examining clusters across multiple profiles and regions"),
-	) 
+	)
 
 	if err != nil {
 		fmt.Println(err)
