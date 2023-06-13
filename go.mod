@@ -3,7 +3,7 @@ module github.com/clouddrove/kuconf
 go 1.19
 
 require (
-	github.com/alecthomas/kong v0.6.1
+	github.com/alecthomas/kong v0.7.1
 	github.com/aws/aws-sdk-go v1.44.281
 	github.com/mattn/go-colorable v0.1.13
 	github.com/pkg/errors v0.9.1
