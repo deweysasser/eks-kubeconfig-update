@@ -83,6 +83,15 @@ jobs:
         body_path: ./CHANGELOG.md
         draft: false
 
+    - uses: MCJack123/ghaction-generate-release-hashes@v3
+      with:
+        file-name: hashes.txt
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Asset Hashes
+        path: hashes.txt
+                
   docker-build:
     runs-on: ubuntu-latest
     name: Build the docker image
