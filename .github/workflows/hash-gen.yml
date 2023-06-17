@@ -12,8 +12,7 @@ jobs:
       uses: MCJack123/ghaction-generate-release-hashes@v1
       with:
         hash-type: sha256
-        file-name: hashes.txt
-        
+        file-name: hashes.txt   
     - name: Upload Hashes to release
       uses: svenstaro/upload-release-action@v2
       with:
