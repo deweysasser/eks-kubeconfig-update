@@ -85,6 +85,7 @@ func (program *Options) getClustersFrom(s *sessionInfo, clusters chan<- ClusterI
 					stats.Errors.Add(1)
 					log.Error().Err(err).Msg("Error describing cluster")
 				} else {
+					log.Info().Str("cluster_name", *c).Str("Profile", s.profile).Str("Region", s.region).Str("Account", s.account).Msg("Cluster config downloaded for")
 					clusters <- ClusterInfo{
 						Cluster: out.Cluster,
 						log:     s.log.With().Str("cluster_name", *c).Logger(),
@@ -187,7 +188,6 @@ func NewSession(profile, region string, log zerolog.Logger) (*sessionInfo, error
 		if out, err := svc.GetCallerIdentity(&sts.GetCallerIdentityInput{}); err == nil {
 			log := log.With().Str("account", *out.Account).Logger()
 			log.Debug().Msg("Profile for account")
-
 			return &sessionInfo{
 				profile: profile,
 				region:  region,
