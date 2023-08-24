@@ -1,8 +1,40 @@
-# kuconf
+<p align="center"> <img src="https://user-images.githubusercontent.com/50652676/62349836-882fef80-b51e-11e9-99e3-7b974309c7e3.png" width="100" height="100"></p>
 
-A quick utility for finding and downloading kubeconfig files for all reachable EKS clusters.
 
-## Overview
+<h1 align="center">
+    Kuconf
+</h1>
+
+<p align="center" style="font-size: 1.2rem;"> 
+    A quick utility for finding and downloading kubeconfig files for all reachable EKS clusters.
+     </p>
+
+<p align="center">
+
+<a href="https://github.com/clouddrove/kuconf/releases/latest">
+  <img src="https://img.shields.io/github/release/clouddrove/kuconf.svg" alt="Latest Release">
+</a>
+<a href="LICENSE.md">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="Licence">
+</a>
+
+
+</p>
+<p align="center">
+
+<a href='https://facebook.com/sharer/sharer.php?u=https://github.com/clouddrove/kuconf'>
+  <img title="Share on Facebook" src="https://user-images.githubusercontent.com/50652676/62817743-4f64cb80-bb59-11e9-90c7-b057252ded50.png" />
+</a>
+<a href='https://www.linkedin.com/shareArticle?mini=true&title=Kuconf&url=https://github.com/clouddrove/kuconf'>
+  <img title="Share on LinkedIn" src="https://user-images.githubusercontent.com/50652676/62817742-4e339e80-bb59-11e9-87b9-a1f68cae1049.png" />
+</a>
+<a href='https://twitter.com/intent/tweet/?text=Kuconf&url=https://github.com/clouddrove/kuconf'>
+  <img title="Share on Twitter" src="https://user-images.githubusercontent.com/50652676/62817740-4c69db00-bb59-11e9-8a79-3580fbbf6d5c.png" />
+</a>
+
+</p>
+
+<hr>
 
 This utility will download a `kubeconfig` file for all EKS clusters it can locate through all AWS
 profiles in your `~/.aws/credentials` file. It does as much as possible in parallel so overall
@@ -12,12 +44,12 @@ It will tolerate redundant profiles.
 
 ## Installation
 
-On MacOS: `brew install deweysasser/tap/kuconf`
+On MacOS: `brew install clouddrove/kuconf`
 
 (if you happen to use brew on linux, you can also use the above)
 
 On Linux or Windows:  Download the appropriate package from the 
-[latest release](https://github.com/deweysasser/kuconf/releases) page.
+[latest release](https://github.com/clouddrove/kuconf/releases) page.
 
 ## Quick Start
 
@@ -31,19 +63,11 @@ This will use every profile in your `~/.aws/credentials` and download kubeconfig
 
 ```shell
 $ time kuconf
-8:44PM ERR Error reaching AWS error="InvalidClientTokenId: The security token included in the request is invalid\n\tstatus code: 403, request id: e7b25ace-2f73-45a1-9c81-0f0b9e34ba6e" profile=profile-1 region=us-east-1
-8:44PM ERR Error reaching AWS error="InvalidClientTokenId: The security token included in the request is invalid\n\tstatus code: 403, request id: 228ece97-cdba-4de2-be70-48135ccad188" profile=profile-2 region=us-east-1
-8:44PM ERR Error reaching AWS error="InvalidClientTokenId: The security token included in the request is invalid\n\tstatus code: 403, request id: 6b8e9d80-b024-4db4-8fb4-9918744a03b4" profile=profile-3 region=us-east-1
-8:44PM ERR Error reaching AWS error="InvalidClientTokenId: The security token included in the request is invalid.\n\tstatus code: 403, request id: fb285c8f-d819-462e-b1fc-81b7bfde02fe" profile=profile-4 region=us-east-1
-8:44PM ERR Error reaching AWS error="InvalidClientTokenId: The security token included in the request is invalid\n\tstatus code: 403, request id: 731fa6c2-43ec-4454-9720-438171faab3c" profile=profile-5 region=us-east-1
-8:44PM ERR Error reaching AWS error="InvalidClientTokenId: The security token included in the request is invalid\n\tstatus code: 403, request id: 7f82d496-1d92-466e-bb93-58a48d75a06d" profile=profile-6 region=us-east-1
-8:44PM ERR Error reaching AWS error="InvalidClientTokenId: The security token included in the request is invalid\n\tstatus code: 403, request id: 7e7ed0a9-e884-426a-81e1-d2e72a9f6264" profile=profile-7 region=us-east-1
-8:44PM INF Statistics clusters=15 fatal_errors=0 profile_regions_pairs=20 profiles=23 unique_profiles=5 usable_profiles=16
-real	0m0.988s
-user	0m0.324s
-sys	0m0.107s
-$ grep -- "- context:" ~/.kube/config| wc -l
-      15
+6:23PM ERR Error reaching AWS error="InvalidClientTokenId: The security token included in the request is invalid.\n\tstatus code: 403, request id: 921c04ea-ba2f-4613-8d6a-2d9ca2aa7a23" profile=test region=us-east-1
+6:23PM INF Statistics clusters=5 fatal_errors=0 profiles=8 regions=17 unique_profiles=7 usable_profiles=7
+kuconf  0.24s user 0.10s system 9% cpu 3.730 total
+➜ grep -- "- context:" ~/.kube/config| wc -l
+       5
 ```
 
 ## Usage
@@ -87,11 +111,6 @@ By default it will fetch clusters from each of `us-east-1`, `us-east-2`, `us-wes
 The default regions can be overridden using the `--regions` command line option or the `AWS_REGIONS`
 environment variable.
 
-## Futures
-
-* Handle other cloud providers?
-* Do we need any more batch functions for EKS across profiles and regions?
-
 ## Caveats & Known Issues
 
 * If there are multiple profiles referencing the same account, which profile will be used is not
@@ -99,8 +118,22 @@ environment variable.
   errors either downloading the config or using the cluster. It could also lead to audit logging
   differences.
 
-## Author
+## Feedback 
+If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/clouddrove/kuconf/issues), or feel free to drop us an email at [hello@clouddrove.com](mailto:hello@clouddrove.com).
 
-Dewey Sasser <dewey@deweysasser.com>
+If you have found it worth your time, go ahead and give us a ★ on [our GitHub](https://github.com/clouddrove/kuconf)!
 
-Please report all bugs via GitHub issues at https://github.com/deweysasser/kuconf
+## About us
+
+At [CloudDrove][website], we offer expert guidance, implementation support and services to help organisations accelerate their journey to the cloud. Our services include docker and container orchestration, cloud migration and adoption, infrastructure automation, application modernisation and remediation, and performance engineering.
+
+<p align="center">We are <b> The Cloud Experts!</b></p>
+<hr />
+<p align="center">We ❤️  <a href="https://github.com/clouddrove">Open Source</a> and you can check out <a href="https://github.com/clouddrove">our other modules</a> to get help with your new Cloud ideas.</p>
+
+  [website]: https://clouddrove.com
+  [github]: https://github.com/clouddrove
+  [linkedin]: https://cpco.io/linkedin
+  [twitter]: https://twitter.com/clouddrove/
+  [email]: https://clouddrove.com/contact-us.html
+  [terraform_modules]: https://github.com/clouddrove?utf8=%E2%9C%93&q=kuconf&type=&language=
