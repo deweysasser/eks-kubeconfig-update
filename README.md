@@ -119,8 +119,8 @@ environment variable.
   differences.
 
 
-## Credit to original author
-The original author of this [original repo](https://github.com/deweysasser/eks-kubeconfig-update) is Mr. Dewey Sasser, we truly appreciate his efforts and time for creating it.
+## Credit to author
+The author of this [repo](https://github.com/deweysasser/eks-kubeconfig-update) is Mr. Dewey Sasser, we truly appreciate his efforts and time for creating it.
 
 ## Feedback 
 If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/clouddrove/kuconf/issues), or feel free to drop us an email at [hello@clouddrove.com](mailto:hello@clouddrove.com).
