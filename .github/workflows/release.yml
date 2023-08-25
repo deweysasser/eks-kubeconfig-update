@@ -111,7 +111,16 @@ jobs:
 
       - name: Push Latest
         run: docker push ghcr.io/${{env.REPO}}:latest
-
+  md5-generator:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: MCJack123/ghaction-Generate-Release-Hashes@v1
+      with:
+        file-name: hashes.txt
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Asset Hashes
+        path: hashes.txt
 # uncomment this if you're also using docker hub
 #      - name: Login to Docker Container Registry
 #        if: ${{ secrets.DOCKERHUB_TOKEN }}
