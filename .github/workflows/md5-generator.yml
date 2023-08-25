@@ -8,6 +8,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v1
     - uses: MCJack123/ghaction-Generate-Release-Hashes@v1
       with:
         hash-type: sha256
