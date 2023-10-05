@@ -74,12 +74,20 @@ jobs:
     - name: Generate Changelog for ${{ github.ref_name }}
       id: generate-changelog
       run: PATH="${PATH}:." make CHANGELOG.md
+    
+    - name: Generate checksum
+      uses: jmgilman/actions-generate-checksum@v1
+      with:
+        patterns: |
+          ./artifacts/kuconf-linux-arm64.zip
 
     - name: Create Release
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
-        files: ./artifacts/*
+        files: |
+          ./artifacts/*
+          checksum.txt
         body_path: ./CHANGELOG.md
         draft: false
                 
