@@ -80,9 +80,9 @@ jobs:
       with:
         patterns: |
           ./artifacts/kuconf-linux-arm64.zip
-          ./artifacts/kuconf-linux-arm64.zip
-          ./artifacts/kuconf-linux-arm64.zip
-          ./artifacts/kuconf-linux-arm64.zip
+          ./artifacts/kuconf-linux-amd64.zip
+          ./artifacts/kuconf-darwin-arm64.zip
+          ./artifacts/kuconf-darwin-amd64.zip
 
     - name: Create Release
       id: create_release
