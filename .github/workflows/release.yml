@@ -83,15 +83,6 @@ jobs:
         shasum -a 256 kuconf-darwin-arm64.zip >> checksum.txt
         shasum -a 256 kuconf-darwin-amd64.zip >> checksum.txt
     
-    # - name: Generate checksum
-    #   uses: jmgilman/actions-generate-checksum@v1
-    #   with:
-    #     patterns: |
-    #       ./artifacts/kuconf-linux-arm64.zip
-    #       ./artifacts/kuconf-linux-amd64.zip
-    #       ./artifacts/kuconf-darwin-arm64.zip
-    #       ./artifacts/kuconf-darwin-amd64.zip
-
     - name: Create Release
       id: create_release
       uses: softprops/action-gh-release@v1
